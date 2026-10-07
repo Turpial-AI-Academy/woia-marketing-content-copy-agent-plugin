@@ -4,7 +4,7 @@ description: Create, adapt, or review marketing content and copy against approve
 license: MIT
 metadata:
   author: Turpial AI Academy
-  version: "0.5.0"
+  version: "0.5.1"
 ---
 
 # Marketing Content & Copy
@@ -36,3 +36,9 @@ Multiple `--forbid` flags are allowed. The tool outputs JSON and exits non-zero 
 ## Effects
 
 Drafting itself has no external effect. Publication/communication belongs to the Channel Execution capability and its authority boundary.
+
+## Marketing and Ads consumers
+
+Marketing and Ads may use this same draft/review capability. Ads-specific variants remain alternatives subject to independent review; they do not transfer Marketing outcome ownership or authorize paid effects. Use the [consumer contract](references/consumer-contract.md) and `scripts/check-copy-request.mjs` for deterministic eligibility checks. The existing constraint CLI remains unchanged.
+
+No direct person messaging, scheduling, channel publication, campaign configuration or spend is executed here. Marketing owns authorized non-person public execution; Ads owns paid effects; Communications/Customer Service owns external person contact. UNKNOWN facts must remain UNKNOWN and never become copy claims.

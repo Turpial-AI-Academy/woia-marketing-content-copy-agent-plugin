@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {checkCopyRequest} from '../skills/marketing-content-copy/scripts/check-copy-request.mjs';
+import {execFileSync,spawnSync} from 'node:child_process';
+import {mkdtempSync,writeFileSync,rmSync} from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+for(const consumer of ['Marketing','Ads']) for(const action of ['draft','review']) test(consumer+' '+action,()=>assert.equal(checkCopyRequest({consumer,action}).result,'PASS'));
+for(const action of ['publish','send','schedule','spend','targeting.configure','campaign.create']) test('reject effect '+action,()=>assert.equal(checkCopyRequest({consumer:'Ads',action}).result,'FAIL'));
+test('reject unknown consumer',()=>assert.equal(checkCopyRequest({consumer:'Sales',action:'draft'}).result,'FAIL'));
+test('reject effect flag',()=>assert.equal(checkCopyRequest({consumer:'Ads',action:'draft',external_effect:true}).result,'FAIL'));
+for(const certainty of ['UNKNOWN','STALE','INFERRED',undefined]) test('reject fact '+certainty,()=>assert.equal(checkCopyRequest({consumer:'Marketing',action:'draft',claims:[{source_ref:'evidence:1',accepted:true,certainty}]}).result,'FAIL'));
+test('reject unaccepted evidence',()=>assert.equal(checkCopyRequest({consumer:'Ads',action:'review',claims:[{source_ref:'evidence:1',accepted:false,certainty:'KNOWN'}]}).result,'FAIL'));
+test('reject untraceable claim',()=>assert.equal(checkCopyRequest({consumer:'Ads',action:'draft',claims:[{source_ref:' ',accepted:true,certainty:'KNOWN'}]}).result,'FAIL'));
+test('accept attested claim without granting effect authority',()=>assert.equal(checkCopyRequest({consumer:'Ads',action:'draft',claims:[{source_ref:'evidence:1',accepted:true,certainty:'KNOWN'}]}).result,'PASS'));
+for(const request of [null,[],{consumer:'Ads',action:'draft',claims:{}},{consumer:'Ads',action:'draft',claims:[null]}]) test('malformed request '+JSON.stringify(request),()=>assert.equal(checkCopyRequest(request).result,'FAIL'));
+test('legacy constraint CLI retains Unicode counts and failure exit',()=>{const dir=mkdtempSync(path.join(os.tmpdir(),'copy-regression-'));try{const file=path.join(dir,'copy.txt');writeFileSync(file,'Home 🏡');const script='skills/marketing-content-copy/scripts/check-copy-constraints.mjs';const result=JSON.parse(execFileSync(process.execPath,[script,'--file',file,'--max-chars','6'],{encoding:'utf8'}));assert.equal(result.chars,6);assert.equal(result.words,2);assert.equal(result.result,'PASS');const failed=spawnSync(process.execPath,[script,'--file',file,'--forbid','HOME'],{encoding:'utf8'});assert.equal(failed.status,2);assert.equal(JSON.parse(failed.stdout).result,'FAIL');}finally{rmSync(dir,{recursive:true});}});
