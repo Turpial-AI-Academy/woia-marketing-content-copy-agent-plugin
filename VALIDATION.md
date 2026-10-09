@@ -1,3 +1,0 @@
-# Validation
-
-Native thin profile; dependency bootstrap has no local install/task. Doctor equivalent: Node syntax checks plus central official manifest/skills/links/root/payload validation. Tests: `node --test tests/copy-consumer.test.mjs` (positive Marketing/Ads eligibility, denied effects, UNKNOWN/unaccepted claims, unchanged legacy CLI). CI/release check: Ecosystem v0.5.4 thin certification on clean exact candidate, including archive and provider-domain regression. Checksums manifest absent/optional. Canonical license independently compared. Adapter integration and Operator E2E remain NOT_RUN.
