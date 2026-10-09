@@ -1,6 +1,6 @@
 # woia-marketing-content-copy
 
-WOIA Marketing v0.5.6 provider for `marketing.content-copy`.
+WOIA Marketing v0.5.7 provider for `marketing.content-copy`.
 
 - Primary skill: `$marketing-content-copy`
 - Authoring profile: thin

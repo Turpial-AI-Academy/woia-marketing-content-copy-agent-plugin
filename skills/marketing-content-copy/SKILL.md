@@ -4,7 +4,7 @@ description: Create, adapt, or review marketing content and copy against approve
 license: MIT
 metadata:
   author: Turpial AI Academy
-  version: "0.5.6"
+  version: "0.5.7"
 ---
 
 # Marketing Content & Copy
