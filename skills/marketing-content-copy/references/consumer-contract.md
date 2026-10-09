@@ -1,6 +1,5 @@
 # Content Copy consumer contract
 
-Source: WOIA Real Estate docs/21 (Content Copy consumer extension), docs/22 (source authority), docs/24 (effect authority), docs/25 (engineering/evidence gates).
 
 Eligible consumers: Marketing and Ads. Actions: draft and review only. This is a provider, not an orchestrator or authority service. Preserve objective/audience/brand/source and channel constraints. Ads variants may suggest alternatives but cannot publish, contact, schedule, configure targeting or spend. Skill draft outputs remain unapproved until the competent owner accepts them. A source reference identifies evidence, not acceptance authority.
 
